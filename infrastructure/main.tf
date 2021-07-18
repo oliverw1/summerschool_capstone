@@ -8,7 +8,7 @@ locals {
 }
 
 module "vpc" {
-  source = "vpc"
+  source = "./vpc"
   environment = local.env_name
   vpc_cidr = "10.1.0.0/16"
   azs = [
@@ -20,9 +20,9 @@ module "vpc" {
 }
 
 module "batch" {
-  source = "batch"
+  source = "./batch"
   env_name                = local.env_name
   vpc_id                  = module.vpc.vpc_id
   private_subnet_ids      = module.vpc.private_subnet_ids
-  allowed_cidrs           = []
+  allowed_cidrs           = [module.vpc.vpc_cidr_block]
 }

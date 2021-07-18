@@ -1,6 +1,4 @@
 provider "aws" {
-  version = "3.45.0"
-
   region = "eu-west-1"
 
   // List of allowed, white listed, AWS account IDs to prevent you from mistakenly

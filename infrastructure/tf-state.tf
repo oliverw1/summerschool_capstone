@@ -1,11 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "biostrand-terraform-state-edgzqd"
+    bucket         = "dm-summer-capstone"
     region         = "eu-west-1"
     encrypt        = "true"
-    key            = "biostrand-1-beta.tfstate"
-    dynamodb_table = "biostrand-terraform-statelock"
+    key            = "summer-capstone.tfstate"
+    dynamodb_table = "summer-capstone-statelock"
   }
-
-  required_version = "=0.13.2"
 }

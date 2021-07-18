@@ -8,7 +8,6 @@ resource "aws_security_group" "batch_instance" {
     from_port       = 0
     to_port         = 0
     cidr_blocks     = var.allowed_cidrs
-    security_groups = var.allowed_security_groups
   }
 
   egress {

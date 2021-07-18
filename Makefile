@@ -1,12 +1,14 @@
 
 version := $(shell git describe --tags --always --first-parent --abbrev=7 --dirty=.dirty)
-dirs := preprocessor ingestion cleanup normalize sequence-mapper omics-parser-dynamic hyft-extractor
 
 test:
-	go test ./...
+	pytest tests
 
-docker-push:
-	$(foreach directory, $(dirs), (cd $(directory) && make docker-push);)
+docker: test
+	docker build . -t 130966031144.dkr.ecr.eu-west-1.amazonaws.com/summer-capstone/export:$(version)
 
-deploy-beta: docker-push
-	cd resources/biostrand-1-beta && terraform init && terraform apply
+docker-push: docker
+	docker push 130966031144.dkr.ecr.eu-west-1.amazonaws.com/summer-capstone/export:$(version)
+
+deploy: docker-push
+	cd infrastructure && terraform init && terraform apply

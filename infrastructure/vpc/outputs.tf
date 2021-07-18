@@ -45,15 +45,3 @@ output "public_route_table_ids" {
 output "private_route_table_ids" {
   value = module.vpc.private_route_table_ids
 }
-
-output "db_subnet_group_id" {
-  value = module.vpc.database_subnet_group
-}
-
-output "elc_subnet_group_id" {
-  value = aws_elasticache_subnet_group.default.id
-}
-
-output "elc_subnet_group_name" {
-  value = aws_elasticache_subnet_group.default.name
-}

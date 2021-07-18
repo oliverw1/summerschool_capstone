@@ -9,7 +9,7 @@ resource "aws_batch_job_definition" "ingest" {
   container_properties = <<CONTAINER_PROPERTIES
 {
     "command": ["python3 /opt/spark/work-dir/scripts/01_export_data_to_db.py"],
-    "image": "${aws_ecr_repository.ecr_repos.name}:${local.version}",
+    "image": "${aws_ecr_repository.ecr_repos.name}:${var.summer_capstone_version}",
     "memory": 1500,
     "vcpus": 1,
     "jobRoleArn": "${aws_iam_role.job_role.arn}",
