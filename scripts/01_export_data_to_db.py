@@ -8,9 +8,9 @@ from summer_capstone.util.snowflake import get_snowflake_creds_from_sm
 def main():
     with ClosableSparkSession("export") as spark:
         df = (read_json_as_df(spark, get_spark_datalink("raw/open_aq"))
-              .transform(flatten_df)
+              .transform(flatten_df())
               .drop("local")
-              .transform(string_columns_to_timestamp))
+              .transform(string_columns_to_timestamp({"utc"})))
 
         SNOWFLAKE_SOURCE_NAME = "net.snowflake.spark.snowflake"
         sfOptions = get_snowflake_creds_from_sm("demoenv/snowflake/login")
@@ -18,7 +18,8 @@ def main():
             "sfDatabase": "SUMMER_CAPSTONE",
             "sfSchema": "PUBLIC",
             "sfWarehouse": "COMPUTE_WH",
-            "sfRole": "ACCOUNTADMIN"
+            "sfRole": "ACCOUNTADMIN",
+            "dbtable": "AQ"
         }
         )
         write_df_with_options(df, format=SNOWFLAKE_SOURCE_NAME, options=sfOptions, mode="overwrite")
