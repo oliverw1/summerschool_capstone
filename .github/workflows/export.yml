@@ -75,11 +75,9 @@ jobs:
         working-directory: ${{ env.working_directory }}/infrastructure
 
       - name: 'Terraform Init environment'
-        if: github.ref == 'refs/heads/main'
         run: terraform init
         working-directory: ${{env.working_directory}}/infrastructure
 
       - name: 'Terraform apply environment'
-        if: github.ref != 'refs/heads/main'
         run: terraform apply -auto-approve
         working-directory: ${{env.working_directory}}/infrastructure
