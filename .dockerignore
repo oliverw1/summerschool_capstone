@@ -20,4 +20,6 @@ Dockerfile
 tests
 infrastructure
 summer_capstone/summer_capstone.egg-info*
+summer_capstone.egg-info
 .pytest_cache
+.idea
