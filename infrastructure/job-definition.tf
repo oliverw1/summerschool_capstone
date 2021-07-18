@@ -14,7 +14,7 @@ resource "aws_batch_job_definition" "export" {
     "vcpus": 4,
     "jobRoleArn": "${aws_iam_role.job_role.arn}",
     "environment": [
-        {"name": "AWS_DEFAULT_REGION", "value": "eu-west-1"}
+        {"name": "AWS_REGION", "value": "eu-west-1"}
     ]
 }
 CONTAINER_PROPERTIES

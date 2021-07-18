@@ -1,20 +1,14 @@
+import os
+
 import awswrangler as wr
+import boto3
 
-def get_snowflake_login_options(url, user, password, db, schema, warehouse, role):
-    return {
-        "sfURL": url,
-        "sfUser": user,
-        "sfPassword": password,
-        "sfDatabase": db,
-        "sfSchema": schema,
-        "sfWarehouse": warehouse,
-        "sfRole": role
-    }
 
-def get_snowflake_creds_from_sm(secret_name: str):
-    creds = wr.secretsmanager.get_secret_json(secret_name)
+def get_snowflake_creds_from_sm(secret_name: str, region: str):
+    b_session =boto3.Session(region_name=region)
+    creds = wr.secretsmanager.get_secret_json(secret_name, b_session)
     return {
-        "sfURL": creds["URL"],
+        "sfURL": f"{creds['URL']}.snowflakecomputing.com",
         "sfPassword": creds["PASSWORD"],
         "sfUser": creds["USER_NAME"]
     }
