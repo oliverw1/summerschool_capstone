@@ -23,5 +23,5 @@ def main():
         )
         write_df_with_options(df, format=SNOWFLAKE_SOURCE_NAME, options=sfOptions, mode="overwrite")
 
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
