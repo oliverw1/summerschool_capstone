@@ -9,7 +9,7 @@ resource "aws_batch_job_definition" "export" {
   container_properties = <<CONTAINER_PROPERTIES
 {
     "command": ["python3 /opt/spark/work-dir/scripts/01_export_data_to_db.py"],
-    "image": "${aws_ecr_repository.ecr_repos.name}:${var.summer_capstone_version}",
+    "image": "${aws_ecr_repository.ecr_repos.arn}:${var.summer_capstone_version}",
     "memory": 6000,
     "vcpus": 4,
     "jobRoleArn": "${aws_iam_role.job_role.arn}",
@@ -81,4 +81,14 @@ resource "aws_iam_role_policy" "secret_manager" {
   name = "secret_policy"
   policy = data.aws_iam_policy_document.secret_manager.json
   role = aws_iam_role.job_role.id
+}
+
+resource "aws_iam_role_policy_attachment" "preprocessor_pipeline_role_batch_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AWSBatchFullAccess"
+  role       = aws_iam_role.job_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "preprocessor_pipeline_role_cloudwatch_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchEventsFullAccess"
+  role       = aws_iam_role.job_role.name
 }
