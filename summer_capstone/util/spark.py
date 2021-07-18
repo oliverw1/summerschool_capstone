@@ -1,17 +1,20 @@
 import logging
 
+import dateutil.tz
 import pyspark.sql
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
 
 
-def string_columns_to_timestamp(col_names: set):
+def string_columns_to_timestamp(col_names: set, format="yyyy-MM-dd'T'HH:mm:ssXXX"):
     def inner(df: pyspark.sql.DataFrame):
         for c_name in col_names:
-            df = df.withColumn(c_name, F.to_timestamp(c_name))
+            df = df.withColumn(c_name,
+                               F.to_timestamp(c_name, format=format))
         return df
 
     return inner
+
 
 def write_df_with_options(df, format: str, mode: str, options: dict):
     (df.write.format(format)
