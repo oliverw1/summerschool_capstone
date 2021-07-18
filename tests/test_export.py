@@ -18,5 +18,5 @@ def test_read_json():
 def test_flatten_df():
     with ClosableSparkSession("test") as spark:
         df = read_json_as_df(spark, "data/sample.json")
-        flat_df = df.transform(flatten_df)
+        flat_df = df.transform(flatten_df())
         assert len(flat_df.columns) == 15

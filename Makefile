@@ -4,7 +4,7 @@ version := $(shell git describe --tags --always --first-parent --abbrev=7 --dirt
 test:
 	pytest tests
 
-docker: test
+docker:
 	docker build . -t 130966031144.dkr.ecr.eu-west-1.amazonaws.com/summer-capstone/export:$(version)
 
 docker-push: docker

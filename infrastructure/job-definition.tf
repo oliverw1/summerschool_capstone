@@ -2,7 +2,7 @@ resource "aws_ecr_repository" "ecr_repos" {
   name  = "${local.env_name}/export"
 }
 
-resource "aws_batch_job_definition" "ingest" {
+resource "aws_batch_job_definition" "export" {
   name = "${local.env_name}-export"
   type = "container"
 
@@ -10,8 +10,8 @@ resource "aws_batch_job_definition" "ingest" {
 {
     "command": ["python3 /opt/spark/work-dir/scripts/01_export_data_to_db.py"],
     "image": "${aws_ecr_repository.ecr_repos.name}:${var.summer_capstone_version}",
-    "memory": 1500,
-    "vcpus": 1,
+    "memory": 6000,
+    "vcpus": 4,
     "jobRoleArn": "${aws_iam_role.job_role.arn}",
     "environment": [
         {"name": "AWS_DEFAULT_REGION", "value": "eu-west-1"}
