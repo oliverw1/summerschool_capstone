@@ -1,0 +1,1 @@
+variable "summer_capstone_version" {}
