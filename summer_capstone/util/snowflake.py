@@ -1,5 +1,3 @@
-import os
-
 import awswrangler as wr
 import boto3
 
