@@ -12,7 +12,7 @@ def main():
     start_date_string = "2021-01-01"
     start_date_from = datetime.datetime.strptime(start_date_string, "%Y-%m-%d").date()
 
-    for i in range(3, 60):
+    for i in range(0, 60):
         date_from = start_date_from + datetime.timedelta(i * 3)
         date_to = date_from + datetime.timedelta(days=(i + 1) * 3)
         params = {
@@ -21,7 +21,7 @@ def main():
             "limit": str(10000),
             "country_id": "BE",
             "page": str(1),
-            "parameters": ["pm10", "pm25", "pm1", "co"]
+            "parameter": ["pm10", "pm25", "pm1", "co"],
         }
         api = openaq.OpenAQ(version="v2")
         while True:
