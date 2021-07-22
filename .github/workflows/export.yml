@@ -9,6 +9,8 @@ on:
       - 'scripts/**'
       - 'summer_capstone/**'
       - '.github/workflows/export.yml'
+      - 'Dockerfile'
+      - 'requirements.txt'
   pull_request:
     branches:
       - main
@@ -17,6 +19,8 @@ on:
       - 'scripts/**'
       - 'summer_capstone/**'
       - '.github/workflows/export.yml'
+      - 'Dockerfile'
+      - 'requirements.txt'
 
 jobs:
   build:
