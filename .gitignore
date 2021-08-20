@@ -3,3 +3,4 @@ venv
 *.terraform*
 local_export.sh
 *.egg*
+.idea

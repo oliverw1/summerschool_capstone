@@ -10,7 +10,9 @@ def main():
     """Retrieve the last six months of Belgian air quality data and push to S3 as JSON"""
 
     start_date_string = "2021-01-01"
-    start_date_from = datetime.datetime.strptime(start_date_string, "%Y-%m-%d").date()
+    start_date_from = datetime.datetime.strptime(
+        start_date_string, "%Y-%m-%d"
+    ).date()
 
     for i in range(0, 60):
         date_from = start_date_from + datetime.timedelta(i * 3)
@@ -34,7 +36,6 @@ def main():
         s3_key = f"raw/open_aq/data_part_{i + 1}.json"
         write_json_to_s3_object(response[1]["results"], s3_key)
         print(i)
-
 
 
 if __name__ == "__main__":

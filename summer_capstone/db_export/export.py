@@ -7,10 +7,7 @@ def read_json_as_df(spark: SparkSession, path: str):
     return df
 
 
-def flatten_df():
-    def inner(df: pyspark.sql.DataFrame):
-        flat_cols = [c[0] for c in df.dtypes if c[1][:6] != 'struct']
-        nested_cols = [c[0] for c in df.dtypes if c[1][:6] == 'struct']
-        flat_df = df.select(*flat_cols, *[c + ".*" for c in nested_cols])
-        return flat_df
-    return inner
+def flatten_df(df: pyspark.sql.DataFrame):
+    flat_cols = [colname for colname, datatype in df.dtypes if not datatype.startswith('struct')]
+    nested_cols = [colname for colname, datatype in df.dtypes if datatype.startswith('struct')]
+    return df.select(*flat_cols, *[c + ".*" for c in nested_cols])
