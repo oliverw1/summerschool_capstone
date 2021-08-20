@@ -14,7 +14,7 @@ def main():
 
     with ClosableSparkSession("export") as spark:
         df = (read_json_as_df(spark, get_spark_datalink("raw/open_aq"))
-              .transform(flatten_df())
+              .transform(flatten_df)
               .drop("local")
               .transform(string_columns_to_timestamp({"utc"})))
 

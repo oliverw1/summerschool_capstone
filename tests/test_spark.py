@@ -1,6 +1,5 @@
 import datetime
 
-import dateutil.tz
 import pytz
 
 from summer_capstone.util.spark import string_columns_to_timestamp, ClosableSparkSession
@@ -13,4 +12,4 @@ def test_string_to_timestamp():
             data=[("1", date_string)],
             schema=["id", "timestamp"])
         df = df.transform(string_columns_to_timestamp({"timestamp"}))
-        assert df.collect()[0][1].astimezone(pytz.utc) == datetime.datetime.fromisoformat(date_string)
+        assert df.head()[1].astimezone(pytz.utc) == datetime.datetime.fromisoformat(date_string)
